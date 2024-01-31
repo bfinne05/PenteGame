@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Pente Game" Height="450" Width="800">
     <Grid>
+        <Canvas Name="MyCanvas">
+            <Image Source="Images/PenteBoard.PNG" Height="434" Width="461" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="29" RenderTransformOrigin="0.5,0.5" Canvas.Top="-1">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.06"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.323"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <TextBlock Name = "Player1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Canvas.Left="514" Canvas.Top="18" Height="44" FontSize="24">
+                Player 1
+            </TextBlock>
+            <TextBlock Name = "Player2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="115" Canvas.Left="662" Canvas.Top="18" Height="44" FontSize="24">
+                Player 2
+            </TextBlock>
+            <TextBlock Name="Observer" Canvas.Left="514" Canvas.Top="148" Height="53" Width="159" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
+                Enter Your Move:
+            </TextBlock>
+            <TextBox Name="PlayerMove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20">
 
+            </TextBox>
+            <Button Name="EndTurn" Canvas.Left="514" Canvas.Top="249" Height="46" Width="159" FontSize="24">
+                End Turn
+            </Button>
+        </Canvas>
     </Grid>
 </Window>

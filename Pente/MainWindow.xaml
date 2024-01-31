@@ -7,32 +7,21 @@
         mc:Ignorable="d"
         Title="Pente Game" Height="450" Width="800">
     <Grid>
-        <Canvas Name="MyCanvas">
-            <Image Source="Images/PenteBoard.PNG" Height="434" Width="461" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="29" RenderTransformOrigin="0.5,0.5" Canvas.Top="-1">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="-0.06"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="-0.323"/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-            <TextBlock Name = "Player1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Canvas.Left="514" Canvas.Top="18" Height="44" FontSize="24">
-                Player 1
-            </TextBlock>
-            <TextBlock Name = "Player2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="115" Canvas.Left="662" Canvas.Top="18" Height="44" FontSize="24">
-                Player 2
-            </TextBlock>
-            <TextBlock Name="Observer" Canvas.Left="514" Canvas.Top="148" Height="53" Width="159" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top">
-                Enter Your Move:
-            </TextBlock>
-            <TextBox Name="PlayerMove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20">
 
-            </TextBox>
-            <Button Name="EndTurn" Canvas.Left="514" Canvas.Top="249" Height="46" Width="159" FontSize="24">
-                End Turn
-            </Button>
-        </Canvas>
+        <TextBlock Name = "Player1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Canvas.Left="514" Canvas.Top="18" Height="44" FontSize="24" Margin="498,28,0,0">
+                Player 1
+        </TextBlock>
+        <TextBlock Name = "Player2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Canvas.Left="662" Canvas.Top="18" Height="44" FontSize="24" Margin="630,28,0,0">
+                Player 2
+        </TextBlock>
+        <TextBlock Name="Observer" Canvas.Left="514" Canvas.Top="148" Height="53" Width="158" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="535,129,0,0">
+                Enter Your Move:
+        </TextBlock>
+        <TextBox Name="PlayerMove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="534,187,0,0">
+
+        </TextBox>
+        
+        <Image Height="100" Width="100"/>
+        <Image HorizontalAlignment="Left" Height="381" Margin="62,0,0,0" VerticalAlignment="Center" Width="405" Source="/PenteBoard.PNG"/>
     </Grid>
 </Window>

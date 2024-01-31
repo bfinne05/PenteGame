@@ -1,0 +1,15 @@
+﻿<Window x:Class="Pente.TitleScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pente"
+        mc:Ignorable="d"
+        Title="TitleScreen" Height="450" Width="800">
+    <Grid>
+        <Image HorizontalAlignment="Center" Height="472" VerticalAlignment="Top" Width="829" Source="/TitleImage.PNG"/>
+        <Button x:Name="PVP" Content="P V P" HorizontalAlignment="Left" Margin="112,258,0,0" VerticalAlignment="Top" Height="47" Width="168" FontSize="30"/>
+        <Button x:Name="PVAI" Content="P V AI" HorizontalAlignment="Left" Margin="508,258,0,0" VerticalAlignment="Top" Height="47" Width="168" FontSize="30"/>
+
+    </Grid>
+</Window>

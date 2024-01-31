@@ -9,10 +9,12 @@
 
   <ItemGroup>
     <None Remove="PenteBoard.PNG" />
+    <None Remove="TitleImage.PNG" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="PenteBoard.PNG" />
+    <Resource Include="TitleImage.PNG" />
   </ItemGroup>
 
 </Project>

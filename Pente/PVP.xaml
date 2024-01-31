@@ -1,0 +1,17 @@
+﻿<Window x:Class="Pente.PVP"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pente"
+        mc:Ignorable="d"
+        Title="PVP" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="54,38,0,0" TextWrapping="Wrap" Text="Enter Player 1's Name" VerticalAlignment="Top" Height="63" Width="239" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" Margin="506,38,0,0" TextWrapping="Wrap" Text="Enter Player 2's Name" VerticalAlignment="Top" Height="63" Width="239" FontSize="24"/>
+        <TextBox Name="Player1Name" HorizontalAlignment="Left" Margin="54,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="56" TextChanged="TextBox_TextChanged" FontSize="24"/>
+        <TextBox Name="Player2Name" HorizontalAlignment="Left" Margin="506,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="56" TextChanged="TextBox_TextChanged" FontSize="24"/>
+        <Button Name="ButtonStartPVP" Content="Start Game" HorizontalAlignment="Center" Margin="0,279,0,0" VerticalAlignment="Top" Height="91" Width="146" FontSize="24"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="257,279,0,0" VerticalAlignment="Top" Width="100" Source="/OIP (1).jpg"/>
+    </Grid>
+</Window>

@@ -14,14 +14,24 @@
         <TextBlock Name = "Player2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Canvas.Left="662" Canvas.Top="18" Height="44" FontSize="24" Margin="630,28,0,0">
                 Player 2
         </TextBlock>
-        <TextBlock Name="Observer" Canvas.Left="514" Canvas.Top="148" Height="53" Width="158" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="498,129,0,0">
+        <TextBlock Name="Observer" Canvas.Left="514" Canvas.Top="148" Height="53" Width="158" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="498,105,0,0">
                 Enter Your Move:
         </TextBlock>
-        <TextBox Name="PlayerMove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="498,182,0,0">
+        <TextBox Name="PlayerMove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="498,163,0,0">
 
         </TextBox>
         <Image Height="100" Width="100"/>
         <Image HorizontalAlignment="Left" Height="381" Margin="62,0,0,0" VerticalAlignment="Center" Width="405" Source="/PenteBoard.PNG"/>
-        <Button Content="End Turn" HorizontalAlignment="Left" Margin="498,248,0,0" VerticalAlignment="Top" Height="58" Width="159" FontSize="24"/>
+        <Button Content="End Turn" HorizontalAlignment="Left" Margin="499,227,0,0" VerticalAlignment="Top" Height="58" Width="158" FontSize="24"/>
+        <Image HorizontalAlignment="Left" Height="172" Margin="586,294,0,0" VerticalAlignment="Top" Width="217" Source="/5f96eec5c5104e3cd55edfd95b5195de.jpg" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.17"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </Window>

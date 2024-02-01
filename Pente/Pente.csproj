@@ -8,13 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PenteBoard.PNG" />
+    <None Remove="5f96eec5c5104e3cd55edfd95b5195de.jpg" />
+    <None Remove="Dave.jpg" />
+    <None Remove="fd7.jfif" />
+    <None Remove="OIP %281%29.jpg" />
     <None Remove="TitleImage.PNG" />
+    <None Remove="Victory.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="PenteBoard.PNG" />
+    <Resource Include="5f96eec5c5104e3cd55edfd95b5195de.jpg" />
+    <Resource Include="Dave.jpg" />
+    <Resource Include="fd7.jfif" />
+    <Resource Include="OIP (1).jpg" />
     <Resource Include="TitleImage.PNG" />
+    <Resource Include="Victory.jpg" />
   </ItemGroup>
 
 </Project>

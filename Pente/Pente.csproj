@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\PenteBoard.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\PenteBoard.PNG" />
+  </ItemGroup>
+
 </Project>

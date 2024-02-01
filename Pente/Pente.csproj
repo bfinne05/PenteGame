@@ -8,11 +8,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\5f96eec5c5104e3cd55edfd95b5195de.jpg" />
+    <None Remove="Assets\BlackPiece.png" />
+    <None Remove="Assets\Board.png" />
+    <None Remove="Assets\Dave.jpg" />
+    <None Remove="Assets\fd7.jfif" />
+    <None Remove="Assets\OIP %281%29.jpg" />
     <None Remove="Assets\PenteBoard.PNG" />
+    <None Remove="Assets\TitleImage.PNG" />
+    <None Remove="Assets\Victory.jpg" />
+    <None Remove="Assets\WhitePiece.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\5f96eec5c5104e3cd55edfd95b5195de.jpg" />
+    <Resource Include="Assets\BlackPiece.png" />
+    <Resource Include="Assets\Board.png" />
+    <Resource Include="Assets\Dave.jpg" />
+    <Resource Include="Assets\fd7.jfif" />
+    <Resource Include="Assets\OIP (1).jpg" />
     <Resource Include="Assets\PenteBoard.PNG" />
+    <Resource Include="Assets\TitleImage.PNG" />
+    <Resource Include="Assets\Victory.jpg" />
+    <Resource Include="Assets\WhitePiece.png" />
   </ItemGroup>
 
 </Project>

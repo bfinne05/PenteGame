@@ -28,5 +28,11 @@ namespace Pente
         {
 
         }
+
+        private void ButtonStartPVP_Click(object sender, RoutedEventArgs e)
+        {
+            Window game = new MainWindow();
+            game.Show();
+        }
     }
 }

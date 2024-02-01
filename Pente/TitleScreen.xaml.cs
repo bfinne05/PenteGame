@@ -23,5 +23,11 @@ namespace Pente
         {
             InitializeComponent();
         }
+
+        private void PVP_Click(object sender, RoutedEventArgs e)
+        {
+            Window game = new PVP();
+            game.Show();
+        }
     }
 }

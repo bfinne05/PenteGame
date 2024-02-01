@@ -9,8 +9,7 @@
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="54,38,0,0" TextWrapping="Wrap" Text="Enter Player 1's Name" VerticalAlignment="Top" Height="63" Width="239" FontSize="24"/>
         <TextBlock HorizontalAlignment="Left" Margin="479,38,0,0" TextWrapping="Wrap" Text="AI" VerticalAlignment="Top" Height="63" Width="239" FontSize="24"/>
-        <TextBox Name="Player1NameAI" HorizontalAlignment="Left" Margin="54,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="56" TextChanged="TextBox_TextChanged" FontSize="24"/>
         <Button Name="ButtonStart" Content="Start Game" HorizontalAlignment="Left" Margin="340,269,0,0" VerticalAlignment="Top" Height="91" Width="146" FontSize="24"/>
-        <Image HorizontalAlignment="Left" Height="239" Margin="514,44,0,0" VerticalAlignment="Top" Width="238" Source="/Dave.jpg"/>
+        <Image HorizontalAlignment="Left" Height="239" Margin="514,44,0,0" VerticalAlignment="Top" Width="238" Source="Assets/Dave.jpg"/>
     </Grid>
 </Window>

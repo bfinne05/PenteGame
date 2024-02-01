@@ -12,6 +12,6 @@
         <TextBox Name="Player1Name" HorizontalAlignment="Left" Margin="54,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="56" TextChanged="TextBox_TextChanged" FontSize="24"/>
         <TextBox Name="Player2Name" HorizontalAlignment="Left" Margin="506,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="56" TextChanged="TextBox_TextChanged" FontSize="24"/>
         <Button Name="ButtonStartPVP" Content="Start Game" HorizontalAlignment="Center" Margin="0,279,0,0" VerticalAlignment="Top" Height="91" Width="146" FontSize="24"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="257,279,0,0" VerticalAlignment="Top" Width="100" Source="/OIP (1).jpg"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="257,279,0,0" VerticalAlignment="Top" Width="100" Source="Assets/OIP (1).jpg"/>
     </Grid>
 </Window>

@@ -25,13 +25,16 @@ namespace Pente
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public bool player1 = true;
+		public bool player1 = false;
 		
 		public MainWindow()
 		{
 			InitializeComponent();
-			//Board.Children.Clear();
-			//Board.Children.Insert(3, image);
+			TextBox box = new TextBox();
+			box.Text = "O";
+			Grid.SetColumn(box, 8);
+			Grid.SetRow(box, 8);
+			Board.Children.Add(box);
 		}
 
 		private void Button_EndTurn(object sender, RoutedEventArgs e)

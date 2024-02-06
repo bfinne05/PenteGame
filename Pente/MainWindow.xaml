@@ -17,7 +17,7 @@
                 Enter Your Move:
         </TextBlock>
         <Image HorizontalAlignment="Left" Height="589" Margin="43,10,0,0" VerticalAlignment="Top" Width="637" Source="Assets/PenteBoard.PNG"/>
-        <Grid x:Name="Board" Margin="86,54,468,68">
+        <Grid x:Name="Board" Margin="86,54,454,54">
             <Image Grid.ColumnSpan="4" Margin="0,0,11,9" Grid.RowSpan="4"/>
             <Grid.RowDefinitions>
                 <RowDefinition Height="28*"/>

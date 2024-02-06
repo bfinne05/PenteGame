@@ -35,12 +35,12 @@ namespace Pente
 
         private void ButtonStartPVP_Click(object sender, RoutedEventArgs e)
         {
-            if (Player1Name.Text != null) player1name = Player1Name.Text ;
-            if (Player1Name.Text == null) player1name = "Player One";
-            if (Player2Name.Text != null) player2name = Player2Name.Text;
-            if (Player2Name.Text == null) player2name = "Player Two";
+            if (Player1Name.Text != null || Player1Name.Text != string.Empty) player1name = Player1Name.Text ;
+            if (Player1Name.Text == null || Player1Name.Text == string.Empty) player1name = "Player One";
+            if (Player2Name.Text != null || Player1Name.Text != string.Empty) player2name = Player2Name.Text;
+            if (Player2Name.Text == null || Player1Name.Text == string.Empty) player2name = "Player Two";
 
-            Window game = new MainWindow(this, player1name, player2name);
+            Window game = new MainWindow(true, player1name, player2name);
             game.Show();
         }
     }

@@ -25,39 +25,40 @@ namespace Pente
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		PVP pvp;
-		//PVAI pvai;
-		public bool isPVP = true;
+		bool isPVPGloabal;
 		public bool player1turn = false;
 		public string p1Name;
 		public string p2Name;
 		
-		public MainWindow(PVP pvpI, string player1, string player2)
+		public MainWindow(bool isPVP, string player1, string player2)
 		{
 			InitializeComponent();
-			Player1.Text = player1;
-			Player2.Text = player2;
-			pvp = pvpI;
-			p1Name = player1;
-			p2Name = player2;
+			isPVPGloabal = isPVP;
 			if (isPVP)
 			{
-                switch (player1turn)
-                {
-                    case true:
-                        PlayerTurn.Text = player1 + "'s Turn";
-                        break;
-                    case false:
-						PlayerTurn.Text = player2 + "'s Turn";
-                        break;
-                }
-            }
+				Player1.Text = player1;
+				Player2.Text = player2;
+				p1Name = player1;
+				p2Name = player2;
+				if (isPVP)
+				{
+					switch (player1turn)
+					{
+						case true:
+							PlayerTurn.Text = player1 + "'s Turn";
+							break;
+						case false:
+							PlayerTurn.Text = player2 + "'s Turn";
+							break;
+					}
+				}
 
-			TextBox box = new TextBox();
-			box.Text = "O";
-			Grid.SetColumn(box, 8);
-			Grid.SetRow(box, 8);
-			Board.Children.Add(box);
+				TextBox box = new TextBox();
+				box.Text = "O";
+				Grid.SetColumn(box, 8);
+				Grid.SetRow(box, 8);
+				Board.Children.Add(box);
+			}
 		}
 
 		private void Button_EndTurn(object sender, RoutedEventArgs e)
@@ -88,15 +89,18 @@ namespace Pente
 			// Add the TextBox to the specified row and column in the Board grid
 			Board.Children.Add(box);
 
-            switch (player1turn)
-            {
-                case true:
-                    PlayerTurn.Text = p1Name + "'s Turn";
-                    break;
-                case false:
-                    PlayerTurn.Text = p2Name + "'s Turn";
-                    break;
-            }
+			if (isPVPGloabal)
+			{
+				switch (player1turn)
+				{
+					case true:
+						PlayerTurn.Text = p1Name + "'s Turn";
+						break;
+					case false:
+						PlayerTurn.Text = p2Name + "'s Turn";
+						break;
+				}
+			}
         }
 	}
 }

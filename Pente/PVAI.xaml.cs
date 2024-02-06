@@ -19,9 +19,22 @@ namespace Pente
     /// </summary>
     public partial class PVAI : Window
     {
+        public string player1name;
+        public string player2name;
+
         public PVAI()
         {
             InitializeComponent();
+        }
+
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        {
+            if (Player1Name.Text != null || Player1Name.Text != string.Empty) player1name = Player1Name.Text;
+            if (Player1Name.Text == null || Player1Name.Text == string.Empty ) player1name = "Player One";
+            player2name = "Matt";
+
+            Window game = new MainWindow(false, player1name, player2name);
+            game.Show();
         }
     }
 }

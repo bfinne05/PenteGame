@@ -29,5 +29,11 @@ namespace Pente
             Window game = new PVP();
             game.Show();
         }
+
+        private void PVAI_Click(object sender, RoutedEventArgs e)
+        {
+            Window game = new PVAI();
+            game.Show();
+        }
     }
 }

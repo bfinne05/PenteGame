@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Pente
 {
@@ -19,6 +20,9 @@ namespace Pente
     /// </summary>
     public partial class PVP : Window
     {
+        public string player1name;
+        public string player2name;
+
         public PVP()
         {
             InitializeComponent();
@@ -31,7 +35,12 @@ namespace Pente
 
         private void ButtonStartPVP_Click(object sender, RoutedEventArgs e)
         {
-            Window game = new MainWindow();
+            if (Player1Name.Text != null) player1name = Player1Name.Text ;
+            if (Player1Name.Text == null) player1name = "Player One";
+            if (Player2Name.Text != null) player2name = Player2Name.Text;
+            if (Player2Name.Text == null) player2name = "Player Two";
+
+            Window game = new MainWindow(this, player1name, player2name);
             game.Show();
         }
     }

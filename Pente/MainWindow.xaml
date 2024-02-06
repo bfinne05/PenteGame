@@ -62,6 +62,7 @@
         </Grid>
         <TextBox Name="PlayerMoveX" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="630,317,0,0"></TextBox>
         <TextBox Name="PlayerMoveY" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="830,317,0,0"></TextBox>
+        <TextBlock Name="PlayerTurn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="635,181,0,0"></TextBlock>
         <Button x:Name="BTN_EndTurn" Content="End Turn" HorizontalAlignment="Left" Margin="630,400,0,0" VerticalAlignment="Top" Height="58" Width="158" FontSize="24" Click="Button_EndTurn"/>
     </Grid>
 </Window>

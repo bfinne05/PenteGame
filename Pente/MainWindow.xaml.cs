@@ -25,11 +25,34 @@ namespace Pente
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public bool player1 = false;
+		PVP pvp;
+		//PVAI pvai;
+		public bool isPVP = true;
+		public bool player1turn = false;
+		public string p1Name;
+		public string p2Name;
 		
-		public MainWindow()
+		public MainWindow(PVP pvpI, string player1, string player2)
 		{
 			InitializeComponent();
+			Player1.Text = player1;
+			Player2.Text = player2;
+			pvp = pvpI;
+			p1Name = player1;
+			p2Name = player2;
+			if (isPVP)
+			{
+                switch (player1turn)
+                {
+                    case true:
+                        PlayerTurn.Text = player1 + "'s Turn";
+                        break;
+                    case false:
+						PlayerTurn.Text = player2 + "'s Turn";
+                        break;
+                }
+            }
+
 			TextBox box = new TextBox();
 			box.Text = "O";
 			Grid.SetColumn(box, 8);
@@ -43,17 +66,17 @@ namespace Pente
 			int y = int.Parse(PlayerMoveY.Text);
 
 			TextBox box = new TextBox();
-			if (player1)
+			if (player1turn)
 			{
 				box.Text = "O";
-				player1 = false;
+				player1turn = false;
 				PlayerMoveX.Text = "";
 				PlayerMoveY.Text = "";
 			}
 			else
 			{
 				box.Text = "X";
-				player1 = true;
+				player1turn = true;
 				PlayerMoveX.Text = "";
 				PlayerMoveY.Text = "";
 			}
@@ -64,6 +87,16 @@ namespace Pente
 
 			// Add the TextBox to the specified row and column in the Board grid
 			Board.Children.Add(box);
-		}
+
+            switch (player1turn)
+            {
+                case true:
+                    PlayerTurn.Text = p1Name + "'s Turn";
+                    break;
+                case false:
+                    PlayerTurn.Text = p2Name + "'s Turn";
+                    break;
+            }
+        }
 	}
 }

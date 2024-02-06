@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Pente Game" Height="633" Width="1055">
     <Grid Margin="0,0,0,-6">
-        <TextBlock Name = "Player1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Canvas.Left="514" Canvas.Top="18" Height="44" FontSize="24" Margin="811,46,0,0">
+        <TextBlock Name = "Player1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="164" Canvas.Left="514" Canvas.Top="18" Height="44" FontSize="24" Margin="678,46,0,0">
                 Player 1
         </TextBlock>
-        <TextBlock Name = "Player2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="115" Canvas.Left="662" Canvas.Top="18" Height="44" FontSize="24" Margin="931,46,0,0" RenderTransformOrigin="2.975,1.429">
+        <TextBlock Name = "Player2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" Canvas.Left="662" Canvas.Top="18" Height="44" FontSize="24" Margin="889,46,0,0" RenderTransformOrigin="2.975,1.429">
                 Player 2
         </TextBlock>
         <TextBlock Name="Observer" Canvas.Left="514" Canvas.Top="148" Height="53" Width="158" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="630,259,0,0">
@@ -64,5 +64,7 @@
         <TextBox Name="PlayerMoveY" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="830,317,0,0"></TextBox>
         <TextBlock Name="PlayerTurn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="635,181,0,0"></TextBlock>
         <Button x:Name="BTN_EndTurn" Content="End Turn" HorizontalAlignment="Left" Margin="630,400,0,0" VerticalAlignment="Top" Height="58" Width="158" FontSize="24" Click="Button_EndTurn"/>
+        <TextBlock Name="Error" HorizontalAlignment="Left" Margin="635,510,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="77" Width="291" FontSize="24"/>
+        <TextBlock Name="Timer" HorizontalAlignment="Left" Margin="830,400,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="58" Width="158" FontSize="24"/>
     </Grid>
 </Window>

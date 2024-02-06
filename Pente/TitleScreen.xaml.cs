@@ -28,12 +28,14 @@ namespace Pente
         {
             Window game = new PVP();
             game.Show();
+            this.Close();
         }
 
         private void PVAI_Click(object sender, RoutedEventArgs e)
         {
             Window game = new PVAI();
             game.Show();
+            this.Close();
         }
     }
 }

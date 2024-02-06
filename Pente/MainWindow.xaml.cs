@@ -1,22 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
-using Color = System.Drawing.Color;
+using System.Windows.Threading;
 
 namespace Pente
 {
@@ -25,82 +10,137 @@ namespace Pente
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		bool isPVPGloabal;
+		bool isPVPGlobal;
 		public bool player1turn = false;
 		public string p1Name;
 		public string p2Name;
-		
-		public MainWindow(bool isPVP, string player1, string player2)
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
+        public MainWindow(bool isPVP, string player1, string player2)
 		{
 			InitializeComponent();
-			isPVPGloabal = isPVP;
-			if (isPVP)
-			{
-				Player1.Text = player1;
-				Player2.Text = player2;
-				p1Name = player1;
-				p2Name = player2;
-				if (isPVP)
-				{
-					switch (player1turn)
-					{
-						case true:
-							PlayerTurn.Text = player1 + "'s Turn";
-							break;
-						case false:
-							PlayerTurn.Text = player2 + "'s Turn";
-							break;
-					}
-				}
+            isPVPGlobal = isPVP;
+			Player1.Text = player1;
+			Player2.Text = player2;
+			p1Name = player1;
+			p2Name = player2;
 
-				TextBox box = new TextBox();
-				box.Text = "O";
-				Grid.SetColumn(box, 8);
-				Grid.SetRow(box, 8);
-				Board.Children.Add(box);
+            switch (player1turn)
+			{
+				case true:
+					PlayerTurn.Text = player1 + "'s Turn";
+					break;
+				case false:
+					PlayerTurn.Text = player2 + "'s Turn";
+					break;
 			}
+
+			TextBox box = new TextBox();
+			box.Text = "O";
+			Grid.SetColumn(box, 8);
+			Grid.SetRow(box, 8);
+			Board.Children.Add(box);
+
+            if (!isPVP) AIMove();
 		}
 
 		private void Button_EndTurn(object sender, RoutedEventArgs e)
 		{
-			int x = int.Parse(PlayerMoveX.Text);
-			int y = int.Parse(PlayerMoveY.Text);
-
-			TextBox box = new TextBox();
-			if (player1turn)
+			if (PlayerMoveX.Text == string.Empty || PlayerMoveY.Text == string.Empty)
 			{
-				box.Text = "O";
-				player1turn = false;
-				PlayerMoveX.Text = "";
-				PlayerMoveY.Text = "";
+				Error.Text = "Please Enter A Value Before Ending Your Turn.";
 			}
 			else
 			{
-				box.Text = "X";
-				player1turn = true;
-				PlayerMoveX.Text = "";
-				PlayerMoveY.Text = "";
-			}
+                int x = int.Parse(PlayerMoveX.Text);
+                int y = int.Parse(PlayerMoveY.Text);
 
-			// Set the column for the TextBox
-			Grid.SetColumn(box, x);
-			Grid.SetRow(box, y);
+                TextBox box = new TextBox();
+                if (player1turn)
+                {
+                    box.Text = "O";
+                    player1turn = false;
+                    PlayerMoveX.Text = "";
+                    PlayerMoveY.Text = "";
+                }
+                else
+                {
+                    box.Text = "X";
+                    player1turn = true;
+                    PlayerMoveX.Text = "";
+                    PlayerMoveY.Text = "";
+                }
 
-			// Add the TextBox to the specified row and column in the Board grid
-			Board.Children.Add(box);
+                // Set the column for the TextBox
+                Grid.SetColumn(box, x);
+                Grid.SetRow(box, y);
 
-			if (isPVPGloabal)
-			{
-				switch (player1turn)
+                // Add the TextBox to the specified row and column in the Board grid
+                Board.Children.Add(box);
+
+                switch (player1turn)
+                {
+                    case true:
+                        PlayerTurn.Text = p1Name + "'s Turn";
+                        break;
+                    case false:
+                        PlayerTurn.Text = p2Name + "'s Turn";
+                        break;
+                }
+
+				Error.Text = "";
+
+				if (!isPVPGlobal)
 				{
-					case true:
-						PlayerTurn.Text = p1Name + "'s Turn";
-						break;
-					case false:
-						PlayerTurn.Text = p2Name + "'s Turn";
-						break;
+					AIMove();
 				}
-			}
+            }
         }
-	}
+
+		public int RandomX()
+		{
+			Random rnd = new Random();
+			int x = rnd.Next(1, 20);
+
+			return x;
+		}
+
+        public int RandomY()
+        {
+            Random rnd = new Random();
+            int y = rnd.Next(1, 20);
+
+            return y;
+        }
+
+		public void AIMove()
+		{
+			int x = RandomX();
+			int y = RandomY();
+
+            TextBox box = new TextBox();
+
+            box.Text = "X";
+            player1turn = true;
+            PlayerMoveX.Text = "";
+            PlayerMoveY.Text = "";
+
+            // Set the column for the TextBox
+            Grid.SetColumn(box, x);
+            Grid.SetRow(box, y);
+
+            // Add the TextBox to the specified row and column in the Board grid
+            Board.Children.Add(box);
+
+            switch (player1turn)
+            {
+                case true:
+                    PlayerTurn.Text = p1Name + "'s Turn";
+                    break;
+                case false:
+                    PlayerTurn.Text = p2Name + "'s Turn";
+                    break;
+            }
+        }
+    }
 }

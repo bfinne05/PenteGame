@@ -42,6 +42,7 @@ namespace Pente
 
             Window game = new MainWindow(true, player1name, player2name);
             game.Show();
+            this.Close();
         }
     }
 }

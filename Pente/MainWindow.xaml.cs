@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -14,18 +16,18 @@ namespace Pente
 		public bool player1turn = false;
 		public string p1Name;
 		public string p2Name;
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+		DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
-        public MainWindow(bool isPVP, string player1, string player2)
+		public MainWindow(bool isPVP, string player1, string player2)
 		{
 			InitializeComponent();
-            isPVPGlobal = isPVP;
+			isPVPGlobal = isPVP;
 			Player1.Text = player1;
 			Player2.Text = player2;
 			p1Name = player1;
 			p2Name = player2;
 
-            switch (player1turn)
+			switch (player1turn)
 			{
 				case true:
 					PlayerTurn.Text = player1 + "'s Turn";
@@ -34,14 +36,9 @@ namespace Pente
 					PlayerTurn.Text = player2 + "'s Turn";
 					break;
 			}
+			SetGrid(19, 19);	
 
-			TextBox box = new TextBox();
-			box.Text = "O";
-			Grid.SetColumn(box, 8);
-			Grid.SetRow(box, 8);
-			Board.Children.Add(box);
-
-            if (!isPVP) AIMove();
+			if (!isPVP) AIMove();
 		}
 
 		private void Button_EndTurn(object sender, RoutedEventArgs e)
@@ -52,41 +49,37 @@ namespace Pente
 			}
 			else
 			{
-                int x = int.Parse(PlayerMoveX.Text);
-                int y = int.Parse(PlayerMoveY.Text);
+				int x = int.Parse(PlayerMoveX.Text);
+				int y = int.Parse(PlayerMoveY.Text);
+				//checkWin(x, y, player1turn);
 
-                TextBox box = new TextBox();
-                if (player1turn)
-                {
-                    box.Text = "O";
-                    player1turn = false;
-                    PlayerMoveX.Text = "";
-                    PlayerMoveY.Text = "";
-                }
-                else
-                {
-                    box.Text = "X";
-                    player1turn = true;
-                    PlayerMoveX.Text = "";
-                    PlayerMoveY.Text = "";
-                }
+				if (CheckSpace(x, y))
+				{
+					if (player1turn)
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == x && Grid.GetColumn(e) == y).Text = "O";
+						player1turn = false;
+						PlayerMoveX.Text = "";
+						PlayerMoveY.Text = "";
+					}
+					else
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == x && Grid.GetColumn(e) == y).Text = "X";
+						player1turn = true;
+						PlayerMoveX.Text = "";
+						PlayerMoveY.Text = "";
+					}
 
-                // Set the column for the TextBox
-                Grid.SetColumn(box, x);
-                Grid.SetRow(box, y);
-
-                // Add the TextBox to the specified row and column in the Board grid
-                Board.Children.Add(box);
-
-                switch (player1turn)
-                {
-                    case true:
-                        PlayerTurn.Text = p1Name + "'s Turn";
-                        break;
-                    case false:
-                        PlayerTurn.Text = p2Name + "'s Turn";
-                        break;
-                }
+					switch (player1turn)
+					{
+						case true:
+							PlayerTurn.Text = p1Name + "'s Turn";
+							break;
+						case false:
+							PlayerTurn.Text = p2Name + "'s Turn";
+							break;
+					}
+				}
 
 				Error.Text = "";
 
@@ -94,8 +87,8 @@ namespace Pente
 				{
 					AIMove();
 				}
-            }
-        }
+			}
+		}
 
 		public int RandomX()
 		{
@@ -105,42 +98,100 @@ namespace Pente
 			return x;
 		}
 
-        public int RandomY()
-        {
-            Random rnd = new Random();
-            int y = rnd.Next(1, 20);
+		public int RandomY()
+		{
+			Random rnd = new Random();
+			int y = rnd.Next(1, 20);
 
-            return y;
-        }
+			return y;
+		}
 
 		public void AIMove()
 		{
 			int x = RandomX();
 			int y = RandomY();
+			if (CheckSpace(x, y))
+			{
+				Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == x && Grid.GetColumn(e) == y).Text = "X";
+				player1turn = true;
+				PlayerMoveX.Text = "";
+				PlayerMoveY.Text = "";
 
-            TextBox box = new TextBox();
+				
 
-            box.Text = "X";
-            player1turn = true;
-            PlayerMoveX.Text = "";
-            PlayerMoveY.Text = "";
+				switch (player1turn)
+				{
+					case true:
+						PlayerTurn.Text = p1Name + "'s Turn";
+						break;
+					case false:
+						PlayerTurn.Text = p2Name + "'s Turn";
+						break;
+				}
+			}
+			else
+			{
+				AIMove();
+			}
+		}
 
-            // Set the column for the TextBox
-            Grid.SetColumn(box, x);
-            Grid.SetRow(box, y);
+		public bool CheckSpace(int columnIndex, int rowIndex)
+		{
+			TextBlock textBox = Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == columnIndex);
+			if (textBox != null && textBox.Text == string.Empty)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-            // Add the TextBox to the specified row and column in the Board grid
-            Board.Children.Add(box);
+		private void SetGrid(int rows, int columns)
+		{
+			for (int row = 0; row < rows; row++)
+			{
+				for (int col = 0; col < columns; col++)
+				{
+					TextBlock textBox = new TextBlock();
+					Board.Children.Add(textBox);
 
-            switch (player1turn)
-            {
-                case true:
-                    PlayerTurn.Text = p1Name + "'s Turn";
-                    break;
-                case false:
-                    PlayerTurn.Text = p2Name + "'s Turn";
-                    break;
-            }
-        }
-    }
+					Grid.SetRow(textBox, row);
+					Grid.SetColumn(textBox, col);
+				}
+			}
+			Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == 8 && Grid.GetColumn(e) == 8).Text = "O";
+		}
+
+		public void checkWin(int columnIndex, int rowIndex, bool player1)
+		{
+			int tick = 0;
+			//left check
+			for(int i = rowIndex; i > rowIndex - 5; i--)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == i && Grid.GetColumn(e) == columnIndex).Text == "O")
+				{
+					tick++;
+				}
+				if(tick == 4)
+				{
+					Debug.WriteLine("Win");
+				}
+			}
+			tick = 0;
+			//check right
+			for (int i = rowIndex; i > rowIndex + 5; i++)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == i && Grid.GetColumn(e) == columnIndex).Text == "O")
+				{
+					tick++;
+				}
+				if (tick == 4)
+				{
+					Debug.WriteLine("Win");
+				}
+			}
+		}
+	}
 }

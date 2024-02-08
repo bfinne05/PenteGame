@@ -16,8 +16,7 @@
         <TextBlock Name="Observer" Canvas.Left="514" Canvas.Top="148" Height="53" Width="158" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="630,259,0,0">
                 Enter Your Move:
         </TextBlock>
-        <Image HorizontalAlignment="Left" Height="589" Margin="43,10,0,0" VerticalAlignment="Top" Width="637" Source="Assets/PenteBoard.PNG"/>
-        <Grid x:Name="Board" Margin="86,54,454,54">
+        <Grid x:Name="Board" Margin="86,54,454,54" ShowGridLines="True">
             <Image Grid.ColumnSpan="4" Margin="0,0,11,9" Grid.RowSpan="4"/>
             <Grid.RowDefinitions>
                 <RowDefinition Height="28*"/>
@@ -60,8 +59,8 @@
                 <ColumnDefinition Width="26*"/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <TextBox Name="PlayerMoveX" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="630,317,0,0"></TextBox>
-        <TextBox Name="PlayerMoveY" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="830,317,0,0"></TextBox>
+        <TextBox Name="PlayerMoveX" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="49" FontSize="20" Margin="830,317,0,0"></TextBox>
+        <TextBox Name="PlayerMoveY" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="635,317,0,0"></TextBox>
         <TextBlock Name="PlayerTurn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Canvas.Left="514" Canvas.Top="183" Height="48" FontSize="20" Margin="635,181,0,0"></TextBlock>
         <Button x:Name="BTN_EndTurn" Content="End Turn" HorizontalAlignment="Left" Margin="630,400,0,0" VerticalAlignment="Top" Height="58" Width="158" FontSize="24" Click="Button_EndTurn"/>
         <TextBlock Name="Error" HorizontalAlignment="Left" Margin="635,510,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="77" Width="291" FontSize="24"/>

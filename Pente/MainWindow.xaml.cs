@@ -16,6 +16,8 @@ namespace Pente
 		public bool player1turn = false;
 		public string p1Name;
 		public string p2Name;
+		public int player1Captures = 0;
+		public int player2Captures = 0;
 
 		public MainWindow(bool isPVP, string player1, string player2)
 		{
@@ -59,6 +61,7 @@ namespace Pente
 						player1turn = false;
 						PlayerMoveX.Text = "";
 						PlayerMoveY.Text = "";
+						//checkPlayer1Take(x, y);
 						CheckPlayer1Win(x, y);
 					}
 					else
@@ -133,7 +136,7 @@ namespace Pente
 			}
 		}
 
-		public bool CheckSpace(int columnIndex, int rowIndex)
+		public bool CheckSpace(int rowIndex, int columnIndex)
 		{
 			TextBlock textBox = Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == columnIndex);
 			if (textBox != null && textBox.Text == string.Empty)
@@ -155,6 +158,7 @@ namespace Pente
 				for (int col = 0; col < columns; col++)
 				{
 					TextBlock textBox = new TextBlock();
+					TextBlock.SetTextAlignment(textBox, TextAlignment.Center);
 					Board.Children.Add(textBox);
 
 					Grid.SetRow(textBox, row);
@@ -188,6 +192,9 @@ namespace Pente
 			if(tick >= 5)
 			{
 				Debug.WriteLine("Player 1 win");
+				Window game = new WinScreen();
+				game.Show();
+				this.Close();
 				return true;
 			}
 
@@ -205,6 +212,15 @@ namespace Pente
 				tick++;
 				Debug.Write("Horizontal right");
 				newColumnIndex++;
+			}
+
+			if (tick >= 5)
+			{
+				Debug.WriteLine("Player 1 win");
+				Window game = new WinScreen();
+				game.Show();
+				this.Close();
+				return true;
 			}
 
 			//diagonal check
@@ -229,6 +245,36 @@ namespace Pente
 			if (tick >= 5)
 			{
 				Debug.WriteLine("Player 1 win");
+				Window game = new WinScreen();
+				game.Show();
+				this.Close();
+				return true;
+			}
+
+			tick = 0;
+			newRowIndex = rowIndex;
+			newColumnIndex = ColumnIndex;
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "O" && newColumnIndex < 20 && newRowIndex > 0)
+			{
+				tick++;
+				Debug.Write("DiagonalUp");
+				newColumnIndex++;
+				newRowIndex--;
+			}
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "O" && newColumnIndex > 0 && newRowIndex < 20)
+			{
+				tick++;
+				Debug.Write("DiagonalDown");
+				newColumnIndex--;
+				newRowIndex++;
+			}
+
+			if (tick >= 5)
+			{
+				Debug.WriteLine("Player 1 win");
+				Window game = new WinScreen();
+				game.Show();
+				this.Close();
 				return true;
 			}
 			else
@@ -260,7 +306,10 @@ namespace Pente
 
 			if (tick >= 5)
 			{
-				Debug.WriteLine("Player 1 win");
+				Debug.WriteLine("Player 2 win");
+				Window game = new WinScreen();
+				game.Show();
+				this.Close();
 				return true;
 			}
 
@@ -280,7 +329,16 @@ namespace Pente
 				newColumnIndex++;
 			}
 
-			//diagonal check
+			if (tick >= 5)
+			{
+				Debug.WriteLine("Player 2 win");
+				Window game = new WinScreen();
+				game.Show();
+				this.Close();
+				return true;
+			}
+
+			//diagonal check upper right and right down
 			tick = 0;
 			newRowIndex = rowIndex;
 			newColumnIndex = ColumnIndex;
@@ -298,10 +356,38 @@ namespace Pente
 				newColumnIndex--;
 				newRowIndex--;
 			}
+			if (tick >= 5)
+			{
+				Debug.WriteLine("Player 2 win");
+				Window game = new WinScreen();
+				game.Show();
+				return true;
+			}
+
+			//diagonal check upper left and left down
+			tick = 0;
+			newRowIndex = rowIndex;
+			newColumnIndex = ColumnIndex;
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "X" && newColumnIndex < 20 && newRowIndex > 0)
+			{
+				tick++;
+				Debug.Write("DiagonalUp");
+				newColumnIndex++;
+				newRowIndex--;
+			}
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "X" && newColumnIndex > 0 && newRowIndex < 20)
+			{
+				tick++;
+				Debug.Write("DiagonalDown");
+				newColumnIndex--;
+				newRowIndex++;
+			}
 
 			if (tick >= 5)
 			{
 				Debug.WriteLine("Player 2 win");
+				Window game = new WinScreen();
+				game.Show();
 				return true;
 			}
 			else
@@ -310,6 +396,101 @@ namespace Pente
 			}
 		}
 
+		public void checkPlayer1Take(int rowIndex, int ColumnIndex)
+		{
+			//horizontal check right
+			if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 3 && Grid.GetColumn(e) == ColumnIndex).Text == "O" && rowIndex + 3 < 20 && ColumnIndex < 20)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+					player1Captures++;
+				}
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+					player1Captures++;
+				}
+			}
 
+			//horizontal check left
+			if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 3 && Grid.GetColumn(e) == ColumnIndex).Text == "O" && rowIndex - 3 > 0 && ColumnIndex > 0)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+					player1Captures++;
+				}
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+					player1Captures++;
+				}
+			}
+
+			//vertical check up
+			if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 3).Text == "O" && rowIndex < 20 && ColumnIndex + 3 < 20)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 1).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 1).Text = "";
+					player1Captures++;
+				}
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 2).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 2).Text = "";
+					player1Captures++;
+				}
+			}
+			//verticale check down
+			if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 3).Text == "O" && rowIndex > 0 && ColumnIndex - 3 > 0)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 1).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 1).Text = "";
+					player1Captures++;
+				}
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 2).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 2).Text = "";
+					player1Captures++;
+				}
+			}
+			//diagonal check up
+			if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 3 && Grid.GetColumn(e) == ColumnIndex + 3).Text == "O" && rowIndex + 3 < 20 && ColumnIndex + 3 < 20)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex + 1).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex + 1).Text = "";
+					player1Captures++;
+				}
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex + 2).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex + 2).Text = "";
+					player1Captures++;
+				}
+			}
+			//diagonal check down
+			if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 3 && Grid.GetColumn(e) == ColumnIndex - 3).Text == "O" && rowIndex - 3 > 0 && ColumnIndex - 3 > 0)
+			{ 
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex - 1).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex - 1).Text = "";
+					player1Captures++;
+				}
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex - 2).Text == "X")
+				{
+					Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex - 2).Text = "";
+					player1Captures++;
+				}
+			}
+			if(player1Captures >= 5)
+			{
+				Debug.WriteLine("Player 1 won by captures");
+				Window game = new WinScreen();
+				game.Show();
+				this.Close();
+			}
+		}
 	}
 }

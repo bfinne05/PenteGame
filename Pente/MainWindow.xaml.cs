@@ -16,7 +16,6 @@ namespace Pente
 		public bool player1turn = false;
 		public string p1Name;
 		public string p2Name;
-		DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
 		public MainWindow(bool isPVP, string player1, string player2)
 		{
@@ -51,7 +50,6 @@ namespace Pente
 			{
 				int x = int.Parse(PlayerMoveX.Text);
 				int y = int.Parse(PlayerMoveY.Text);
-				//checkWin(x, y, player1turn);
 
 				if (CheckSpace(x, y))
 				{
@@ -61,6 +59,7 @@ namespace Pente
 						player1turn = false;
 						PlayerMoveX.Text = "";
 						PlayerMoveY.Text = "";
+						CheckPlayer1Win(x, y);
 					}
 					else
 					{
@@ -68,6 +67,7 @@ namespace Pente
 						player1turn = true;
 						PlayerMoveX.Text = "";
 						PlayerMoveY.Text = "";
+						CheckPlayer2Win(x, y);
 					}
 
 					switch (player1turn)
@@ -81,9 +81,7 @@ namespace Pente
 					}
 				}
 
-				Error.Text = "";
-
-				if (!isPVPGlobal)
+				if (!isPVPGlobal && !player1turn)
 				{
 					AIMove();
 				}
@@ -140,10 +138,12 @@ namespace Pente
 			TextBlock textBox = Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == columnIndex);
 			if (textBox != null && textBox.Text == string.Empty)
 			{
+				Error.Text = "";
 				return true;
 			}
 			else
 			{
+				Error.Text = "Piece is already placed there";
 				return false;
 			}
 		}
@@ -164,34 +164,152 @@ namespace Pente
 			Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == 8 && Grid.GetColumn(e) == 8).Text = "O";
 		}
 
-		public void checkWin(int columnIndex, int rowIndex, bool player1)
+		public bool CheckPlayer1Win(int rowIndex, int ColumnIndex)
 		{
 			int tick = 0;
-			//left check
-			for(int i = rowIndex; i > rowIndex - 5; i--)
+			int newRowIndex = rowIndex;
+			int newColumnIndex = ColumnIndex;
+			TextBlock text = Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex);
+			Debug.WriteLine(text.Text);
+
+			//horizontal check
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == ColumnIndex).Text == "O" && newRowIndex > 0)
 			{
-				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == i && Grid.GetColumn(e) == columnIndex).Text == "O")
-				{
-					tick++;
-				}
-				if(tick == 4)
-				{
-					Debug.WriteLine("Win");
-				}
+				tick++;
+				newRowIndex--;
 			}
-			tick = 0;
-			//check right
-			for (int i = rowIndex; i > rowIndex + 5; i++)
+			newRowIndex = rowIndex;
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == ColumnIndex).Text == "O" && newRowIndex < 20)
 			{
-				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == i && Grid.GetColumn(e) == columnIndex).Text == "O")
-				{
-					tick++;
-				}
-				if (tick == 4)
-				{
-					Debug.WriteLine("Win");
-				}
+				tick++;
+				newRowIndex++;
+			}
+
+			if(tick >= 5)
+			{
+				Debug.WriteLine("Player 1 win");
+				return true;
+			}
+
+			tick = 0;
+			//vertical Check
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "O" && newColumnIndex > 0)
+			{
+				tick++;
+				Debug.Write("Horizontal left");
+				newColumnIndex--;
+			}
+			newColumnIndex = ColumnIndex; // Reset the column index
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "O" && newColumnIndex < 20)
+			{
+				tick++;
+				Debug.Write("Horizontal right");
+				newColumnIndex++;
+			}
+
+			//diagonal check
+			tick = 0;
+			newRowIndex = rowIndex;
+			newColumnIndex = ColumnIndex;
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "O" && newColumnIndex < 20 && newRowIndex < 20)
+			{
+				tick++;
+				Debug.Write("DiagonalUp");
+				newColumnIndex++;
+				newRowIndex++;
+			}
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "O" && newColumnIndex > 0 && newRowIndex > 0)
+			{
+				tick++;
+				Debug.Write("DiagonalDown");
+				newColumnIndex--;
+				newRowIndex--;
+			}
+
+			if (tick >= 5)
+			{
+				Debug.WriteLine("Player 1 win");
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
+
+		public bool CheckPlayer2Win(int rowIndex, int ColumnIndex)
+		{
+			int tick = 0;
+			int newRowIndex = rowIndex;
+			int newColumnIndex = ColumnIndex;
+			TextBlock text = Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex);
+			Debug.WriteLine(text.Text);
+
+			//horizontal check
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == ColumnIndex).Text == "X" && newRowIndex > 0)
+			{
+				tick++;
+				newRowIndex--;
+			}
+			newRowIndex = rowIndex;
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == ColumnIndex).Text == "X" && newRowIndex < 20)
+			{
+				tick++;
+				newRowIndex++;
+			}
+
+			if (tick >= 5)
+			{
+				Debug.WriteLine("Player 1 win");
+				return true;
+			}
+
+			tick = 0;
+			//vertical Check
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "X" && newColumnIndex > 0)
+			{
+				tick++;
+				Debug.Write("Horizontal left");
+				newColumnIndex--;
+			}
+			newColumnIndex = ColumnIndex; // Reset the column index
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "X" && newColumnIndex < 20)
+			{
+				tick++;
+				Debug.Write("Horizontal right");
+				newColumnIndex++;
+			}
+
+			//diagonal check
+			tick = 0;
+			newRowIndex = rowIndex;
+			newColumnIndex = ColumnIndex;
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "X" && newColumnIndex < 20 && newRowIndex < 20)
+			{
+				tick++;
+				Debug.Write("DiagonalUp");
+				newColumnIndex++;
+				newRowIndex++;
+			}
+			while (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == newRowIndex && Grid.GetColumn(e) == newColumnIndex).Text == "X" && newColumnIndex > 0 && newRowIndex > 0)
+			{
+				tick++;
+				Debug.Write("DiagonalDown");
+				newColumnIndex--;
+				newRowIndex--;
+			}
+
+			if (tick >= 5)
+			{
+				Debug.WriteLine("Player 2 win");
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+
 	}
 }

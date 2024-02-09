@@ -40,9 +40,19 @@ namespace Pente
             if (Player2Name.Text != null || Player1Name.Text != string.Empty) player2name = Player2Name.Text;
             if (Player2Name.Text == null || Player1Name.Text == string.Empty) player2name = "Player Two";
 
-            Window game = new MainWindow(true, player1name, player2name);
-            game.Show();
-            this.Close();
-        }
+			int num = int.Parse(SetGrid.Text);
+			if (num >= 9 && num < 40 && num % 2 != 0)
+			{
+				Window game = new MainWindow(true, player1name, player2name, num + 1);
+				game.Show();
+				this.Close();
+			}
+			else if (num == 0 || SetGrid.Text == string.Empty)
+			{
+				Window game = new MainWindow(true, player1name, player2name, 20);
+				game.Show();
+				this.Close();
+			}
+		}
     }
 }

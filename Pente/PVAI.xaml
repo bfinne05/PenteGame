@@ -9,8 +9,10 @@
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="54,38,0,0" TextWrapping="Wrap" Text="Enter Player 1's Name" VerticalAlignment="Top" Height="63" Width="239" FontSize="24"/>
         <TextBlock HorizontalAlignment="Left" Margin="479,38,0,0" TextWrapping="Wrap" Text="AI" VerticalAlignment="Top" Height="63" Width="239" FontSize="24"/>
-        <Button Name="ButtonStart" Content="Start Game" HorizontalAlignment="Left" Margin="340,269,0,0" VerticalAlignment="Top" Height="91" Width="146" FontSize="24" Click="ButtonStart_Click"/>
+        <Button Name="ButtonStart" Content="Start Game" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Height="91" Width="146" FontSize="24" Click="ButtonStart_Click"/>
         <Image HorizontalAlignment="Left" Height="239" Margin="514,44,0,0" VerticalAlignment="Top" Width="238" Source="Assets/Dave.jpg"/>
         <TextBox Name="Player1Name" HorizontalAlignment="Left" Margin="54,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="55" FontSize="24"/>
+        <TextBox x:Name="GridSet" HorizontalAlignment="Center" Margin="0,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" Height="51" />
+        <TextBlock HorizontalAlignment="Left" Margin="563,208,0,0" TextWrapping="Wrap" Text="set grid: 9-39 use odd numbers" TextAlignment="Center" FontSize="25" VerticalAlignment="Top" Height="96" Width="178"/>
     </Grid>
 </Window>

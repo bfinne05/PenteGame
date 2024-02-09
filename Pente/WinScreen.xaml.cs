@@ -19,9 +19,21 @@ namespace Pente
     /// </summary>
     public partial class WinScreen : Window
     {
-        public WinScreen()
+        public WinScreen(bool playerWin)
         {
             InitializeComponent();
         }
-    }
+
+		private void PlayAgain_Click(object sender, RoutedEventArgs e)
+		{
+            Window game = new TitleScreen();
+            game.Show();
+            this.Close();
+		}
+
+		private void Quit_Click(object sender, RoutedEventArgs e)
+		{
+            this.Close();
+		}
+	}
 }

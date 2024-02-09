@@ -32,10 +32,20 @@ namespace Pente
             if (Player1Name.Text != null || Player1Name.Text != string.Empty) player1name = Player1Name.Text;
             if (Player1Name.Text == null || Player1Name.Text == string.Empty ) player1name = "Player One";
             player2name = "Matt";
+            int num = int.Parse(GridSet.Text);
 
-            Window game = new MainWindow(false, player1name, player2name);
-            game.Show();
-            this.Close();
+            if(num >= 9 && num < 40 && num % 2 != 0)
+            {
+                Window game = new MainWindow(false, player1name, player2name, num + 1);
+                game.Show();
+                this.Close();
+            }
+            else if(num == 0 || GridSet.Text == string.Empty)
+            {
+				Window game = new MainWindow(false, player1name, player2name, 20);
+				game.Show();
+				this.Close();
+			}
         }
     }
 }

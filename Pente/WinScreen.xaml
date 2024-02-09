@@ -17,8 +17,8 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Button Name="PlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="76,206,0,0" VerticalAlignment="Top" Height="64" Width="208" FontSize="24"/>
-        <Button Name="Quit" Content="Quit" HorizontalAlignment="Left" Margin="535,206,0,0" VerticalAlignment="Top" Height="64" Width="208" FontSize="24"/>
+        <Button Name="PlayAgain" Content="Play Again" HorizontalAlignment="Left" Margin="76,206,0,0" VerticalAlignment="Top" Height="64" Width="208" FontSize="24" Click="PlayAgain_Click"/>
+        <Button Name="Quit" Content="Quit" HorizontalAlignment="Left" Margin="535,206,0,0" VerticalAlignment="Top" Height="64" Width="208" FontSize="24" Click="Quit_Click"/>
 
     </Grid>
 </Window>

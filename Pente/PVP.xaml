@@ -13,5 +13,7 @@
         <TextBox Name="Player2Name" HorizontalAlignment="Left" Margin="506,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Height="56" TextChanged="TextBox_TextChanged" FontSize="24"/>
         <Button Name="ButtonStartPVP" Content="Start Game" HorizontalAlignment="Center" Margin="0,279,0,0" VerticalAlignment="Top" Height="91" Width="146" FontSize="24" Click="ButtonStartPVP_Click"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="257,279,0,0" VerticalAlignment="Top" Width="100" Source="Assets/OIP (1).jpg"/>
+        <TextBox x:Name="SetGrid" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="304" Height="61" FontSize="30" TextAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left" Margin="567,167,0,0" TextWrapping="Wrap" Text="set grid: 9-39 use odd numbers" TextAlignment="Center" FontSize="25" VerticalAlignment="Top" Height="96" Width="178"/>
     </Grid>
 </Window>

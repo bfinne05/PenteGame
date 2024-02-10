@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,5 +38,26 @@ namespace Pente
             game.Show();
             this.Close();
         }
-    }
+
+		private void Load_Click(object sender, RoutedEventArgs e)
+		{
+			string filePath = "C:\\MyFile\\save.txt";
+            string p1Name = "";
+
+			try
+			{
+				// Read the contents of the file into a string
+				p1Name = File.ReadAllText(filePath);
+				Console.WriteLine("String loaded successfully:");
+				Console.WriteLine(p1Name);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error: {ex.Message}");
+			}
+            Window game = new MainWindow(true, p1Name, "Bob", 20);
+            game.Show();
+            this.Close();
+		}
+	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -616,5 +617,21 @@ namespace Pente
             // Restart the timer for the next turn
             StartTurnTimer();
         }
-    }
+
+		private void Save_Click(object sender, RoutedEventArgs e)
+		{
+			string filePath = "C:\\MyFile\\save.txt";
+
+			try
+			{
+				// Write the string to a file
+				File.WriteAllText(filePath, p1Name);
+				Console.WriteLine("String saved successfully.");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error: {ex.Message}");
+			}
+		}
+	}
 }

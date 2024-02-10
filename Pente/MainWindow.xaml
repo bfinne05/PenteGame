@@ -24,5 +24,6 @@
         <Button x:Name="BTN_EndTurn" Content="End Turn" HorizontalAlignment="Left" Margin="630,400,0,0" VerticalAlignment="Top" Height="58" Width="158" FontSize="24" Click="Button_EndTurn"/>
         <TextBlock Name="Error" HorizontalAlignment="Left" Margin="635,510,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="77" Width="291" FontSize="24"/>
         <TextBlock Name="Timer" HorizontalAlignment="Left" Margin="830,400,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="58" Width="158" FontSize="24"/>
+        <Button Name="Save" Content="Save Game" HorizontalAlignment="Left" Margin="859,181,0,0" VerticalAlignment="Top" Height="81" Width="143" FontSize="24"/>
     </Grid>
 </Window>

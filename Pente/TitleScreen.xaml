@@ -10,6 +10,7 @@
         <Image HorizontalAlignment="Center" Height="472" VerticalAlignment="Top" Width="829" Source="Assets/TitleImage.PNG"/>
         <Button x:Name="PVP" Content="P V P" HorizontalAlignment="Left" Margin="112,258,0,0" VerticalAlignment="Top" Height="47" Width="168" FontSize="30" Click="PVP_Click"/>
         <Button x:Name="PVAI" Content="P V AI" HorizontalAlignment="Left" Margin="508,258,0,0" VerticalAlignment="Top" Height="47" Width="168" FontSize="30" Click="PVAI_Click"/>
+        <Button Name="Load" Content="Load Game" HorizontalAlignment="Center" Margin="0,339,0,0" VerticalAlignment="Top" FontSize="24"/>
 
     </Grid>
 </Window>

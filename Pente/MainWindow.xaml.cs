@@ -88,7 +88,7 @@ namespace Pente
 						player1turn = false;
 						PlayerMoveX.Text = "";
 						PlayerMoveY.Text = "";
-						//checkPlayer1Take(x, y);
+						checkPlayer1Take(x, y);
 						CheckPlayer1Win(x, y);
 
 					}
@@ -98,6 +98,7 @@ namespace Pente
 						player1turn = true;
 						PlayerMoveX.Text = "";
 						PlayerMoveY.Text = "";
+						checkPlayer2Take(x, y);
 						CheckPlayer2Win(x, y);
 					}
 
@@ -571,10 +572,127 @@ namespace Pente
 			}
 		}
 
+		public void checkPlayer2Take(int rowIndex, int ColumnIndex)
+		{
+			//horizontal check right
+			if (rowIndex + 3 < number && ColumnIndex < number)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 3 && Grid.GetColumn(e) == ColumnIndex).Text == "X")
+				{
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+						player2Captures++;
+					}
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+						player2Captures++;
+					}
+				}
+
+			}
+
+			//horizontal check left
+			if (rowIndex - 3 > 0 && ColumnIndex > 0)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 3 && Grid.GetColumn(e) == ColumnIndex).Text == "X")
+				{
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+						player2Captures++;
+					}
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex).Text = "";
+						player2Captures++;
+					}
+				}
+			}
+
+			//vertical check up
+			if (rowIndex < number && ColumnIndex + 3 < number)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 3).Text == "X")
+				{
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 1).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 1).Text = "";
+						player2Captures++;
+					}
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 2).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex + 2).Text = "";
+						player2Captures++;
+					}
+				}
+			}
+			//verticale check down
+			if (rowIndex > 0 && ColumnIndex - 3 > 0)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 3).Text == "X")
+				{
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 1).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 1).Text = "";
+						player2Captures++;
+					}
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 2).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == ColumnIndex - 2).Text = "";
+						player2Captures++;
+					}
+				}
+			}
+			//diagonal check up
+			if (rowIndex + 3 < number && ColumnIndex + 3 < number)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 3 && Grid.GetColumn(e) == ColumnIndex + 3).Text == "X")
+				{
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex + 1).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 1 && Grid.GetColumn(e) == ColumnIndex + 1).Text = "";
+						player2Captures++;
+					}
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex + 2).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex + 2 && Grid.GetColumn(e) == ColumnIndex + 2).Text = "";
+						player2Captures++;
+					}
+				}
+			}
+			//diagonal check down
+			if (rowIndex - 3 > 0 && ColumnIndex - 3 > 0)
+			{
+				if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 3 && Grid.GetColumn(e) == ColumnIndex - 3).Text == "X")
+				{
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex - 1).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 1 && Grid.GetColumn(e) == ColumnIndex - 1).Text = "";
+						player2Captures++;
+					}
+					if (Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex - 2).Text == "O")
+					{
+						Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex - 2 && Grid.GetColumn(e) == ColumnIndex - 2).Text = "";
+						player2Captures++;
+					}
+				}
+			}
+			if (player2Captures >= 5)
+			{
+				Debug.WriteLine("Player 2 won by captures");
+				Window game = new WinScreen(false);
+				game.Show();
+				this.Close();
+			}
+		}
+
 		public bool Player1Set(int x, int y)
 		{
 			if(x <= middlePlace + 3 && x >= middlePlace - 3 && y <= middlePlace + 3 && y >= middlePlace - 3)
 			{
+				firstPlace = false;
 				return true;
 			}
 			else

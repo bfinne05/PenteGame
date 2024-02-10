@@ -21,8 +21,9 @@ namespace Pente
 		public int number;
 		bool firstPlace = true;
 		public int middlePlace = 0;
+        private DispatcherTimer turnTimer;
 
-		public MainWindow(bool isPVP, string player1, string player2, int num)
+        public MainWindow(bool isPVP, string player1, string player2, int num)
 		{
 			InitializeComponent();
 			isPVPGlobal = isPVP;
@@ -47,7 +48,15 @@ namespace Pente
 			SetGrid(num, num);
 			Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == number / 2 && Grid.GetColumn(e) == number / 2).Text = "O";
 
-			if (!isPVP) AIMove();
+            // Initialize the turn timer
+            turnTimer = new DispatcherTimer();
+            turnTimer.Interval = TimeSpan.FromSeconds(20); //  20 seconds
+            turnTimer.Tick -= TurnTimer_Tick;
+
+            // Set the initial timer display
+            Timer.Text = turnTimer.Interval.ToString(@"hh\:mm\:ss");
+
+            if (!isPVP) AIMove();
 		}
 
 		private void Button_EndTurn(object sender, RoutedEventArgs e)
@@ -106,7 +115,11 @@ namespace Pente
 				{
 					AIMove();
 				}
-			}
+
+                // After a successful move, stop the timer and restart it for the next turn
+                StopTurnTimer();
+                StartTurnTimer();
+            }
 		}
 
 		public int RandomX()
@@ -569,5 +582,39 @@ namespace Pente
 			}
 		}
 
-	}
+        private void StartTurnTimer()
+        {
+            turnTimer.Start();
+        }
+
+        private void StopTurnTimer()
+        {
+            turnTimer.Stop();
+        }
+
+        private void TurnTimer_Tick(object sender, EventArgs e)
+        {
+            // Calculate the remaining time
+            TimeSpan remainingTime = turnTimer.Interval - turnTimer.Interval;
+            Timer.Text = remainingTime.ToString(@"hh\:mm\:ss");
+
+            // If the time reaches zero, skip the player's turn
+            if (remainingTime <= TimeSpan.Zero)
+            {
+                SkipPlayerTurn();
+                // Reset the timer for the next turn
+                remainingTime = TimeSpan.FromSeconds(20);
+                Timer.Text = remainingTime.ToString(@"hh\:mm\:ss");
+            }
+        }
+
+        private void SkipPlayerTurn()
+        {
+			if (player1turn == true) player1turn = false;
+			if (player1turn == false) player1turn = true;
+
+            // Restart the timer for the next turn
+            StartTurnTimer();
+        }
+    }
 }

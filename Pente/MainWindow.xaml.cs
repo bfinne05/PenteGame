@@ -22,11 +22,16 @@ namespace Pente
 		public int number;
 		bool firstPlace = true;
 		public int middlePlace = 0;
-        private DispatcherTimer turnTimer;
+		public int time = 20;
+		private DispatcherTimer timer;
 
         public MainWindow(bool isPVP, string player1, string player2, int num)
 		{
 			InitializeComponent();
+			timer = new DispatcherTimer();
+			timer.Interval = new TimeSpan(0, 0, 1);
+			timer.Tick += Timer_Tick;
+			timer.Start();
 			isPVPGlobal = isPVP;
 			Player1.Text = player1;
 			Player2.Text = player2;
@@ -48,14 +53,6 @@ namespace Pente
 
 			SetGrid(num, num);
 			Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == number / 2 && Grid.GetColumn(e) == number / 2).Text = "O";
-
-            // Initialize the turn timer
-            turnTimer = new DispatcherTimer();
-            turnTimer.Interval = TimeSpan.FromSeconds(20); //  20 seconds
-            turnTimer.Tick -= TurnTimer_Tick;
-
-            // Set the initial timer display
-            Timer.Text = turnTimer.Interval.ToString(@"hh\:mm\:ss");
 
             if (!isPVP) AIMove();
 		}
@@ -80,6 +77,9 @@ namespace Pente
 							player1turn = false;
 							PlayerMoveX.Text = "";
 							PlayerMoveY.Text = "";
+							timer.Stop();
+							time = 20;
+							timer.Start();
 						}
 					}
 					else if (player1turn)
@@ -90,6 +90,9 @@ namespace Pente
 						PlayerMoveY.Text = "";
 						checkPlayer1Take(x, y);
 						CheckPlayer1Win(x, y);
+						timer.Stop();
+						time = 20;
+						timer.Start();
 
 					}
 					else
@@ -100,7 +103,11 @@ namespace Pente
 						PlayerMoveY.Text = "";
 						checkPlayer2Take(x, y);
 						CheckPlayer2Win(x, y);
+						timer.Stop();
+						time = 20;
+						timer.Start();
 					}
+
 
 					switch (player1turn)
 					{
@@ -118,10 +125,7 @@ namespace Pente
 					AIMove();
 				}
 
-                // After a successful move, stop the timer and restart it for the next turn
-                StopTurnTimer();
-                StartTurnTimer();
-            }
+			}
 		}
 
 		public int RandomX()
@@ -697,44 +701,10 @@ namespace Pente
 			}
 			else
 			{
+				Error.Text = "Player 1 Must Place Piece Close to Center on Turn 1";
 				return false;
 			}
 		}
-
-        private void StartTurnTimer()
-        {
-            turnTimer.Start();
-        }
-
-        private void StopTurnTimer()
-        {
-            turnTimer.Stop();
-        }
-
-        private void TurnTimer_Tick(object sender, EventArgs e)
-        {
-            // Calculate the remaining time
-            TimeSpan remainingTime = turnTimer.Interval - turnTimer.Interval;
-            Timer.Text = remainingTime.ToString(@"hh\:mm\:ss");
-
-            // If the time reaches zero, skip the player's turn
-            if (remainingTime <= TimeSpan.Zero)
-            {
-                SkipPlayerTurn();
-                // Reset the timer for the next turn
-                remainingTime = TimeSpan.FromSeconds(20);
-                Timer.Text = remainingTime.ToString(@"hh\:mm\:ss");
-            }
-        }
-
-        private void SkipPlayerTurn()
-        {
-			if (player1turn == true) player1turn = false;
-			if (player1turn == false) player1turn = true;
-
-            // Restart the timer for the next turn
-            StartTurnTimer();
-        }
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -749,6 +719,36 @@ namespace Pente
 			catch (Exception ex)
 			{
 				Console.WriteLine($"Error: {ex.Message}");
+			}
+		}
+
+		void Timer_Tick(object sender, EventArgs e)
+		{
+			if (time > 0)
+			{
+				time--;
+				Timer.Text = string.Format("00:0{0}:{1}", time/60, time%60);
+			}
+			else
+			{
+				timer.Stop();
+				time = 20;
+				
+				if(player1turn == true) player1turn = false;
+				else player1turn = true;
+
+
+				switch (player1turn)
+				{
+					case true:
+						PlayerTurn.Text = p1Name + "'s Turn";
+						break;
+					case false:
+						PlayerTurn.Text = p2Name + "'s Turn";
+						break;
+				}
+
+				timer.Start();
 			}
 		}
 	}

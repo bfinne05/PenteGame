@@ -42,22 +42,44 @@ namespace Pente
 		private void Load_Click(object sender, RoutedEventArgs e)
 		{
 			string filePath = "C:\\MyFile\\save.txt";
-            string p1Name = "";
+			bool isPVP = false;
+			string p1Name = "";
+			string p2Name = "";
+			bool playerTurn = false;
+			int captures1 = 0;
+			int captures2 = 0;
+			int num = 20;
+			List<string> boardData = new List<string>();
 
 			try
 			{
-				// Read the contents of the file into a string
-				p1Name = File.ReadAllText(filePath);
-				Console.WriteLine("String loaded successfully:");
-				Console.WriteLine(p1Name);
+				string[] lines = File.ReadAllLines(filePath);
+
+				// Parse and use the loaded data as needed
+				string[] gameData = lines[0].Split(',');
+				isPVP = bool.Parse(gameData[0].Trim());
+				p1Name = gameData[1].Trim();
+				p2Name = gameData[2].Trim();
+				playerTurn = bool.Parse(gameData[3].Trim());
+				captures1 = int.Parse(gameData[4].Trim());
+				captures2 = int.Parse(gameData[5].Trim());
+				num = int.Parse(gameData[6].Trim());
+
+				// Load board data
+				for (int i = 7; i < lines.Length; i++)
+				{
+					boardData.Add(lines[i]);
+				}
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine($"Error: {ex.Message}");
 			}
-            Window game = new MainWindow(true, p1Name, "Bob", 20);
-            game.Show();
-            this.Close();
+
+			// Pass all loaded data to the main window constructor
+			Window game = new MainWindow(isPVP, p1Name, p2Name, num, playerTurn, captures1, captures2);
+			game.Show();
+			this.Close();
 		}
 	}
 }

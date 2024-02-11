@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Aardvark.Base;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +28,10 @@ namespace Pente
 		public int middlePlace = 0;
 		public int time = 20;
 		private DispatcherTimer timer;
+		Grid gridSave;
 
-        public MainWindow(bool isPVP, string player1, string player2, int num, bool player1turn, int player1captures, int player2captures)
+
+		public MainWindow(bool isPVP, string player1, string player2, int num, bool player1turn, int player1captures, int player2captures, Grid grid)
 		{
 			InitializeComponent();
 			timer = new DispatcherTimer();
@@ -40,6 +44,7 @@ namespace Pente
 			p1Name = player1;
 			p2Name = player2;
 			number = num;
+			gridSave = grid;
 			player1Captures = player1captures;
 			player2Captures = player2captures;
 			middlePlace = (number / 2);
@@ -58,7 +63,7 @@ namespace Pente
 			SetGrid(num, num);
 			Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == number / 2 && Grid.GetColumn(e) == number / 2).Text = "O";
 
-            if (!isPVP) AIMove();
+			if (!isPVP) AIMove();
 		}
 
 		private void Button_EndTurn(object sender, RoutedEventArgs e)
@@ -73,9 +78,9 @@ namespace Pente
 				int y = int.Parse(PlayerMoveY.Text);
 				if (CheckSpace(x, y))
 				{
-					if(player1turn && firstPlace)
+					if (player1turn && firstPlace)
 					{
-						if(Player1Set(x, y))
+						if (Player1Set(x, y))
 						{
 							Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == x && Grid.GetColumn(e) == y).Text = "O";
 							player1turn = false;
@@ -159,7 +164,7 @@ namespace Pente
 				PlayerMoveX.Text = "";
 				PlayerMoveY.Text = "";
 
-				
+
 
 				switch (player1turn)
 				{
@@ -209,9 +214,33 @@ namespace Pente
 					TextBlock textBox = new TextBlock();
 					TextBlock.SetTextAlignment(textBox, TextAlignment.Center);
 					Board.Children.Add(textBox);
-
 					Grid.SetRow(textBox, row);
 					Grid.SetColumn(textBox, col);
+				}
+			}
+			if (gridSave != null)
+			{
+				for (int row = 0; row < rows; row++)
+				{
+					for (int col = 0; col < columns; col++)
+					{
+						// Retrieve TextBlock from gridSave
+						TextBlock sourceTextBox = gridSave.Children.Cast<UIElement>()
+							.OfType<TextBlock>()
+							.FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
+
+						// Retrieve TextBlock from Board
+						TextBlock targetTextBox = Board.Children.Cast<UIElement>()
+							.OfType<TextBlock>()
+							.FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
+
+						// Check for null references
+						if (sourceTextBox != null && targetTextBox != null)
+						{
+							// Set text of targetTextBox to the text of sourceTextBox
+							targetTextBox.Text = sourceTextBox.Text;
+						}
+					}
 				}
 			}
 		}

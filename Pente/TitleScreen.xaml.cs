@@ -76,8 +76,34 @@ namespace Pente
 				Console.WriteLine($"Error: {ex.Message}");
 			}
 
+			// Create a new Grid
+			Grid grid = new Grid();
+
+			// Define the number of rows and columns
+			grid.RowDefinitions.Clear();
+			grid.ColumnDefinitions.Clear();
+			for (int i = 0; i < num; i++)
+			{
+				grid.RowDefinitions.Add(new RowDefinition());
+				grid.ColumnDefinitions.Add(new ColumnDefinition());
+			}
+
+			//needs to be fixed isn't setting the board at the correct positions and boarddata[i][index of the string] needs to be fixed with entering text box data
+			// Populate the grid with text blocks based on the board data
+			for (int i = 0; i < boardData.Count; i++)
+			{
+				for (int j = 0; j < boardData[i].Length; j++)
+				{
+					TextBlock textBlock = new TextBlock();
+					textBlock.Text = boardData[i][j].ToString(); // Assuming each character in boardData represents a cell
+					Grid.SetRow(textBlock, i);
+					Grid.SetColumn(textBlock, j);
+					grid.Children.Add(textBlock);
+				}
+			}
+
 			// Pass all loaded data to the main window constructor
-			Window game = new MainWindow(isPVP, p1Name, p2Name, num, playerTurn, captures1, captures2);
+			Window game = new MainWindow(isPVP, p1Name, p2Name, num, playerTurn, captures1, captures2, grid);
 			game.Show();
 			this.Close();
 		}

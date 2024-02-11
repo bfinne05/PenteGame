@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -25,7 +27,7 @@ namespace Pente
 		public int time = 20;
 		private DispatcherTimer timer;
 
-        public MainWindow(bool isPVP, string player1, string player2, int num)
+        public MainWindow(bool isPVP, string player1, string player2, int num, bool player1turn, int player1captures, int player2captures)
 		{
 			InitializeComponent();
 			timer = new DispatcherTimer();
@@ -38,6 +40,8 @@ namespace Pente
 			p1Name = player1;
 			p2Name = player2;
 			number = num;
+			player1Captures = player1captures;
+			player2Captures = player2captures;
 			middlePlace = (number / 2);
 			Debug.WriteLine(middlePlace);
 
@@ -712,9 +716,27 @@ namespace Pente
 
 			try
 			{
+				// Create a StringBuilder to construct the data string
+				StringBuilder dataBuilder = new StringBuilder();
+
+				// Append the relevant data to the string
+				dataBuilder.AppendLine($"{isPVPGlobal}, {p1Name}, {p2Name}, {player1turn}, {player1Captures}, {player2Captures}, {number}");
+
+				// Iterate through the grid's children (assuming each child is a TextBlock)
+				foreach (TextBlock tb in Board.Children)
+				{
+					// Get the row and column indices of the TextBlock
+					int row = Grid.GetRow(tb);
+					int column = Grid.GetColumn(tb);
+
+					// Append row, column, and text content to the string
+					dataBuilder.AppendLine($"{row}, {column}, {tb.Text}");
+				}
+
 				// Write the string to a file
-				File.WriteAllText(filePath, p1Name);
-				Console.WriteLine("String saved successfully.");
+				File.WriteAllText(filePath, dataBuilder.ToString());
+				Console.WriteLine("Data saved successfully.");
+				this.Close();
 			}
 			catch (Exception ex)
 			{

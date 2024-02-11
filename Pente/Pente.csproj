@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aardvark.Base.FSharp" Version="5.2.29" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\5f96eec5c5104e3cd55edfd95b5195de.jpg" />
     <Resource Include="Assets\BlackPiece.png" />
     <Resource Include="Assets\Board.png" />

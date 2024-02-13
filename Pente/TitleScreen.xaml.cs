@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Aardvark.Base.MultimethodTest;
 
 namespace Pente
 {
@@ -66,7 +67,7 @@ namespace Pente
 				num = int.Parse(gameData[6].Trim());
 
 				// Load board data
-				for (int i = 7; i < lines.Length; i++)
+				for (int i = 1; i < lines.Length; i++)
 				{
 					boardData.Add(lines[i]);
 				}
@@ -87,20 +88,34 @@ namespace Pente
 				grid.RowDefinitions.Add(new RowDefinition());
 				grid.ColumnDefinitions.Add(new ColumnDefinition());
 			}
-
+			int row = 0; 
+			int col = 0;
 			//needs to be fixed isn't setting the board at the correct positions and boarddata[i][index of the string] needs to be fixed with entering text box data
 			// Populate the grid with text blocks based on the board data
 			for (int i = 0; i < boardData.Count; i++)
 			{
-				for (int j = 0; j < boardData[i].Length; j++)
+				if(col == num)
 				{
-					TextBlock textBlock = new TextBlock();
-					textBlock.Text = boardData[i][j].ToString(); // Assuming each character in boardData represents a cell
-					Grid.SetRow(textBlock, i);
-					Grid.SetColumn(textBlock, j);
-					grid.Children.Add(textBlock);
+					col = 0;
+					row++;
 				}
+				TextBlock textBlock = new TextBlock();
+				if (boardData[i].Length == 7)
+				{
+					textBlock.Text = boardData[i][6].ToString();
+				}
+				else
+				{
+					textBlock.Text = string.Empty;
+				}
+				// Assuming each character in boardData represents a cell
+				Grid.SetRow(textBlock, row);
+				Grid.SetColumn(textBlock, col);
+				grid.Children.Add(textBlock);
+
+				col++;
 			}
+			
 
 			// Pass all loaded data to the main window constructor
 			Window game = new MainWindow(isPVP, p1Name, p2Name, num, playerTurn, captures1, captures2, grid);

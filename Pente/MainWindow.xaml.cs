@@ -61,7 +61,7 @@ namespace Pente
 			}
 
 			SetGrid(num, num);
-			Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == number / 2 && Grid.GetColumn(e) == number / 2).Text = "O";
+			
 
 			if (!isPVP) AIMove();
 		}
@@ -242,6 +242,10 @@ namespace Pente
 						}
 					}
 				}
+			}
+			else
+			{
+				Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == number / 2 && Grid.GetColumn(e) == number / 2).Text = "O";
 			}
 		}
 

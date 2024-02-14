@@ -160,6 +160,8 @@ namespace Pente
 			if (CheckSpace(x, y))
 			{
 				Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == x && Grid.GetColumn(e) == y).Text = "X";
+				checkPlayer2Take(x, y);
+				CheckPlayer2Win(x, y);
 				player1turn = true;
 				PlayerMoveX.Text = "";
 				PlayerMoveY.Text = "";
@@ -185,7 +187,7 @@ namespace Pente
 		public bool CheckSpace(int rowIndex, int columnIndex)
 		{
 			TextBlock textBox = Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == rowIndex && Grid.GetColumn(e) == columnIndex);
-			if (textBox != null && textBox.Text == string.Empty)
+			if (textBox != null && textBox.Text == string.Empty && rowIndex >= 0 && rowIndex < number && columnIndex >= 0 && columnIndex < number)
 			{
 				Error.Text = "";
 				return true;
@@ -224,21 +226,14 @@ namespace Pente
 				{
 					for (int col = 0; col < columns; col++)
 					{
-						// Retrieve TextBlock from gridSave
-						TextBlock sourceTextBox = gridSave.Children.Cast<UIElement>()
-							.OfType<TextBlock>()
-							.FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
+						TextBlock saveTextBox = gridSave.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
 
-						// Retrieve TextBlock from Board
-						TextBlock targetTextBox = Board.Children.Cast<UIElement>()
-							.OfType<TextBlock>()
-							.FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
+	
+						TextBlock gridTextBox = Board.Children.Cast<UIElement>().OfType<TextBlock>().FirstOrDefault(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == col);
 
-						// Check for null references
-						if (sourceTextBox != null && targetTextBox != null)
+						if (saveTextBox != null && gridTextBox != null)
 						{
-							// Set text of targetTextBox to the text of sourceTextBox
-							targetTextBox.Text = sourceTextBox.Text;
+							gridTextBox.Text = saveTextBox.Text;
 						}
 					}
 				}

@@ -77,10 +77,7 @@ namespace Pente
 				Console.WriteLine($"Error: {ex.Message}");
 			}
 
-			// Create a new Grid
 			Grid grid = new Grid();
-
-			// Define the number of rows and columns
 			grid.RowDefinitions.Clear();
 			grid.ColumnDefinitions.Clear();
 			for (int i = 0; i < num; i++)
@@ -90,8 +87,8 @@ namespace Pente
 			}
 			int row = 0; 
 			int col = 0;
-			//needs to be fixed isn't setting the board at the correct positions and boarddata[i][index of the string] needs to be fixed with entering text box data
-			// Populate the grid with text blocks based on the board data
+			
+			//grabbing textblock data and setting it
 			for (int i = 0; i < boardData.Count; i++)
 			{
 				if(col == num)
@@ -108,11 +105,10 @@ namespace Pente
 				{
 					textBlock.Text = string.Empty;
 				}
-				// Assuming each character in boardData represents a cell
+				
 				Grid.SetRow(textBlock, row);
 				Grid.SetColumn(textBlock, col);
 				grid.Children.Add(textBlock);
-
 				col++;
 			}
 			

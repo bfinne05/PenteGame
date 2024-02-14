@@ -745,24 +745,28 @@ namespace Pente
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-			string filePath = "C:\\MyFile\\save.txt";
+			string directoryPath = "C:\\MyFile";
+			string fileName = "save.txt";
 
 			try
 			{
-				// Create a StringBuilder to construct the data string
-				StringBuilder dataBuilder = new StringBuilder();
+				
+				string filePath = Path.Combine(directoryPath, fileName);
 
-				// Append the relevant data to the string
+				
+				if (!Directory.Exists(directoryPath))
+				{
+					Directory.CreateDirectory(directoryPath);
+				}
+
+				StringBuilder dataBuilder = new StringBuilder();
 				dataBuilder.AppendLine($"{isPVPGlobal}, {p1Name}, {p2Name}, {player1turn}, {player1Captures}, {player2Captures}, {number}");
 
-				// Iterate through the grid's children (assuming each child is a TextBlock)
 				foreach (TextBlock tb in Board.Children)
 				{
-					// Get the row and column indices of the TextBlock
 					int row = Grid.GetRow(tb);
 					int column = Grid.GetColumn(tb);
 
-					// Append row, column, and text content to the string
 					dataBuilder.AppendLine($"{row}, {column}, {tb.Text}");
 				}
 

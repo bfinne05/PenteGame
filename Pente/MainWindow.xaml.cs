@@ -66,7 +66,7 @@ namespace Pente
 			if (!isPVP) AIMove();
 		}
 
-		private void Button_EndTurn(object sender, RoutedEventArgs e)
+		public void Button_EndTurn(object sender, RoutedEventArgs e)
 		{
 			if (PlayerMoveX.Text == string.Empty || PlayerMoveY.Text == string.Empty)
 			{
